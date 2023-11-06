@@ -1,0 +1,17 @@
+{
+  "name": "forum-app",
+  "version": "1.0.0",
+  "description": "Mini forum app",
+  "packageManager": "pnpm@8.9.2",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "forum-app"
+  ],
+  "author": "Parth Chauhan",
+  "license": "ISC"
+}
