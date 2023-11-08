@@ -8,7 +8,7 @@ export class UserResponseDTO {
   email: string;
 
   @ApiProperty()
-  id: string;
+  userId: string;
 
   @ApiProperty()
   jwt: string;
