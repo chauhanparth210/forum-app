@@ -13,6 +13,16 @@ async function bootstrap() {
     .setDescription('This is an API documentation of forum-app')
     .setVersion('1.0')
     .addTag('APIs')
+    .addBearerAuth(
+      {
+        name: 'Authorization',
+        bearerFormat: 'Bearer',
+        scheme: 'Bearer',
+        type: 'http',
+        in: 'Header',
+      },
+      'jwt-token',
+    )
     .build();
   const document = SwaggerModule.createDocument(app, config);
 

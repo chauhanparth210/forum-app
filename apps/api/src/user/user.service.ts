@@ -15,7 +15,7 @@ import {
   INCORRECT_PASSWORD,
   USERNAME_TAKEN,
   USER_NOT_FOUND,
-} from 'utils/constant';
+} from 'utils/error-messages';
 import { JWTConfig } from 'config/jwt.config';
 
 @Injectable()
@@ -95,5 +95,17 @@ export class UserService {
       userId: user.id,
       jwt: jwtToken,
     };
+  }
+
+  async getUserInfo(id?: string): Promise<UserResponseDTO | null> {
+    if (id) {
+      const user = await this.userRepository.findOneBy({ id });
+      return {
+        username: user.username,
+        email: user.email,
+        userId: user.id,
+      };
+    }
+    return null;
   }
 }

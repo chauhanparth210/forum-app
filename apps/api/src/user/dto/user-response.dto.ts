@@ -10,6 +10,6 @@ export class UserResponseDTO {
   @ApiProperty()
   userId: string;
 
-  @ApiProperty()
-  jwt: string;
+  @ApiProperty({ required: false })
+  jwt?: string;
 }
