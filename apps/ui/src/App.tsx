@@ -1,8 +1,10 @@
+import Main from "./components/Main";
+
 function App() {
   return (
-    <>
-      <h1>hello</h1>
-    </>
+    <div className="container mx-auto px-5 py-16 flex flex-wrap flex-col border text-custom-black">
+      <Main />
+    </div>
   );
 }
 
