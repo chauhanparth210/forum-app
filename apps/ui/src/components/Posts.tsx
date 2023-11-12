@@ -1,14 +1,19 @@
+import { memo } from "react";
 import Card from "./Card";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { Post, getPosts } from "../api";
-import React, { useEffect, useState } from "react";
+import { Post } from "../api";
 import Spinner from "./Spinner";
 
 dayjs.extend(relativeTime);
 
 type SinglePostProps = {
   post?: Post;
+};
+
+type PostsProps = {
+  posts: Post[] | undefined;
+  loading: boolean;
 };
 
 function SinglePost({ post }: SinglePostProps) {
@@ -27,22 +32,9 @@ function SinglePost({ post }: SinglePostProps) {
   );
 }
 
-const MemorizedPost = React.memo(SinglePost);
+const MemorizedPost = memo(SinglePost);
 
-function Posts() {
-  const [posts, setPosts] = useState<Post[]>();
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function getData() {
-      const data = await getPosts();
-      setPosts(data);
-      setLoading(false);
-    }
-
-    getData();
-  }, []);
-
+function Posts({ posts, loading }: PostsProps) {
   if (loading) {
     return (
       <div className="pt-10 flex justify-center">
@@ -56,4 +48,4 @@ function Posts() {
   );
 }
 
-export default React.memo(Posts);
+export default memo(Posts);

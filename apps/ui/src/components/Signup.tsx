@@ -2,6 +2,7 @@ import Button from "./Button";
 
 type SignupProps = {
   setModalType: (type: string) => void;
+  setOpen: (type: boolean) => void;
 };
 
 function Signup({ setModalType }: SignupProps) {

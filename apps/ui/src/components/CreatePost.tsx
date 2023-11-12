@@ -1,14 +1,23 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Button from "./Button";
 import Card from "./Card";
-import { createPosts } from "../api";
+import { Post, createPosts } from "../api";
+import { UserContext } from "../context/UserContext";
 
-function CreatePost() {
+type CreatePostProps = {
+  setPosts: (cb: any) => void;
+};
+
+function CreatePost({ setPosts }: CreatePostProps) {
   const [text, setText] = useState("");
   const [isAnonymous, setAnonymous] = useState(false);
+  const { user } = useContext(UserContext);
 
   const handleClick = async () => {
-    const data = await createPosts({ text, isAnonymous });
+    const data = await createPosts({ text, isAnonymous }, user?.jwt);
+    setPosts((prevPosts: Post[]) => {
+      return [data, ...prevPosts];
+    });
   };
 
   return (

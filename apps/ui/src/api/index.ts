@@ -4,6 +4,7 @@ export type User = {
   id: string;
   username: string;
   email: string;
+  jwt: string;
 };
 
 export type Post = {
@@ -21,10 +22,8 @@ export const getPosts = async (): Promise<Post[]> => {
 
 export const createPosts = async (
   post: { text: string; isAnonymous: boolean },
-  token: string = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDFiYTVhNi00ZjdjLTRkMWItYWY4OS0wZDgwODQ5MTgzNjkiLCJpYXQiOjE2OTk4MDEyNjgsImV4cCI6MTY5OTgxMjA2OH0.yZurAtU-ZM5V-EoXJi-aNFFRdHjJEQpqrD9JqoQsVsI"
+  token?: string
 ): Promise<Post[]> => {
-  console.log({ post });
-
   const response = await fetch(`${BASE_URL}/post/create`, {
     method: "POST",
     headers: {
@@ -32,6 +31,22 @@ export const createPosts = async (
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(post),
+  });
+  const data = await response.json();
+  return data;
+};
+
+export const LoginUser = async (user: {
+  username?: string;
+  email?: string;
+  password: string;
+}): Promise<User> => {
+  const response = await fetch(`${BASE_URL}/user/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(user),
   });
   const data = await response.json();
   return data;

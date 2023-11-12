@@ -5,12 +5,12 @@ import Login from "./Login";
 import Signup from "./Signup";
 
 type HeaderProps = {
-  username: string;
+  username?: string;
 };
 
 function Header({ username }: HeaderProps) {
   const [isModalOpen, setOpen] = useState(false);
-  const [modalType, setModalType] = useState("");
+  const [modalType, setModalType] = useState<string>();
 
   return (
     <header>
@@ -56,9 +56,9 @@ function Header({ username }: HeaderProps) {
         center
       >
         {modalType === "login" ? (
-          <Login setModalType={setModalType} />
+          <Login setModalType={setModalType} setOpen={setOpen} />
         ) : (
-          <Signup setModalType={setModalType} />
+          <Signup setModalType={setModalType} setOpen={setOpen} />
         )}
       </Modal>
     </header>
