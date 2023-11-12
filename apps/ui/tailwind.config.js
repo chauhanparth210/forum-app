@@ -17,6 +17,7 @@ export default {
         "custom-light-gray": "#35373B",
         "custom-dark-black": "#191920",
         "custom-blue": "#4A96FF",
+        "custom-light-black": "#131319",
       },
     },
   },

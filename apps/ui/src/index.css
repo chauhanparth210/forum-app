@@ -1,10 +1,22 @@
 :root {
   font-family: "Inter", sans-serif;
   font-weight: 400;
-  /* color: #7f8084; */
   background-color: #131319;
 }
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.custom-overlay {
+  backdrop-filter: blur(2px);
+}
+
+.custom-modal {
+  background: #27292d !important;
+  padding: 40px 16px !important;
+  width: 460px;
+  border: 2px solid #35373b;
+  border-radius: 10px;
+  font-weight: 400;
+}

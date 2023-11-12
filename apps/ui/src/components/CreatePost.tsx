@@ -3,7 +3,7 @@ import Card from "./Card";
 
 function CreatePost() {
   return (
-    <Card className="mt-10">
+    <Card className="mt-10 text-custom-gray">
       <h4 className="text-custom-gray text-lg">Create post</h4>
       <div className="pt-4 flex h-20">
         <input
