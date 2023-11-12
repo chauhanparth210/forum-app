@@ -11,8 +11,14 @@ function CreatePost() {
           placeholder="How are you feeling today?"
         />
       </div>
+      <div className="flex pt-4 items-center">
+        <input type="checkbox" className="bg-custom-dark-black rounded" />
+        <p className="text-custom-gray ml-2">Post anonymously</p>
+      </div>
       <div className="flex justify-end pt-4">
-        <Button className="px-9">Post</Button>
+        <Button type="submit" className="px-9 form-input">
+          Post
+        </Button>
       </div>
     </Card>
   );
