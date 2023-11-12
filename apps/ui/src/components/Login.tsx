@@ -1,6 +1,10 @@
 import Button from "./Button";
 
-function Login() {
+type LoginProps = {
+  setModalType: (type: string) => void;
+};
+
+function Login({ setModalType }: LoginProps) {
   return (
     <div className="text-custom-gray">
       <div className="text-center">
@@ -29,6 +33,15 @@ function Login() {
           Login now
         </Button>
       </form>
+      <div className="flex pt-3">
+        <p className="text-custom-black">Not registered yet?</p>
+        <p
+          className="text-custom-gray ml-2 cursor-pointer"
+          onClick={() => setModalType("signup")}
+        >
+          Register →
+        </p>
+      </div>
     </div>
   );
 }

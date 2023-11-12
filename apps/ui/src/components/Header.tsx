@@ -2,19 +2,37 @@ import { useState } from "react";
 import { Modal } from "react-responsive-modal";
 import Button from "./Button";
 import Login from "./Login";
+import Signup from "./Signup";
 
 type HeaderProps = {
   username: string;
 };
 
 function Header({ username }: HeaderProps) {
-  const [open, setOpen] = useState(false);
+  const [isModalOpen, setOpen] = useState(false);
+  const [modalType, setModalType] = useState("");
 
   return (
     <header>
       <div className="flex justify-end">
-        <Button className="px-9 form-input">Login</Button>
-        <Button className="px-9 form-input ml-4">Signup</Button>
+        <Button
+          className="px-9 form-input"
+          onClick={() => {
+            setOpen(true);
+            setModalType("login");
+          }}
+        >
+          Login
+        </Button>
+        <Button
+          className="px-9 form-input ml-4"
+          onClick={() => {
+            setOpen(true);
+            setModalType("signup");
+          }}
+        >
+          Signup
+        </Button>
       </div>
       <h1 className="font-medium text-3xl text-custom-gray">
         Hello {username}
@@ -28,7 +46,7 @@ function Header({ username }: HeaderProps) {
           overlay: "custom-overlay",
           modal: "custom-modal",
         }}
-        open={open}
+        open={isModalOpen}
         onClose={() => setOpen(false)}
         closeIcon={
           <div className="h-8 w-8 bg-custom-dark-black text-white flex justify-center content-center rounded-[50%]">
@@ -37,11 +55,11 @@ function Header({ username }: HeaderProps) {
         }
         center
       >
-        <Login />
-        <div className="flex pt-3">
-          <p className="text-custom-black">Not registered yet?</p>
-          <p className="text-custom-gray ml-2">Register →</p>
-        </div>
+        {modalType === "login" ? (
+          <Login setModalType={setModalType} />
+        ) : (
+          <Signup setModalType={setModalType} />
+        )}
       </Modal>
     </header>
   );
