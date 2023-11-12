@@ -98,7 +98,7 @@ export class PostService {
 
     const posts = [...result[0], ...result[1]].sort(
       (post1, post2) =>
-        new Date(post1.created).getTime() - new Date(post2.created).getTime(),
+        new Date(post2.created).getTime() - new Date(post1.created).getTime(),
     );
 
     return posts;
@@ -153,7 +153,7 @@ export class PostService {
       ...result[1],
     ].sort(
       (post1, post2) =>
-        new Date(post1.created).getTime() - new Date(post2.created).getTime(),
+        new Date(post2.created).getTime() - new Date(post1.created).getTime(),
     );
 
     return posts;

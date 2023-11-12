@@ -1,7 +1,16 @@
+import { useState } from "react";
 import Button from "./Button";
 import Card from "./Card";
+import { createPosts } from "../api";
 
 function CreatePost() {
+  const [text, setText] = useState("");
+  const [isAnonymous, setAnonymous] = useState(false);
+
+  const handleClick = async () => {
+    const data = await createPosts({ text, isAnonymous });
+  };
+
   return (
     <Card className="mt-10 text-custom-gray">
       <h4 className="text-custom-gray text-lg">Create post</h4>
@@ -9,14 +18,21 @@ function CreatePost() {
         <input
           className="bg-custom-dark-black flex-grow rounded"
           placeholder="How are you feeling today?"
+          onChange={(e) => setText(e.target.value)}
+          value={text}
         />
       </div>
       <div className="flex pt-4 items-center">
-        <input type="checkbox" className="bg-custom-dark-black rounded" />
+        <input
+          type="checkbox"
+          className="bg-custom-dark-black rounded"
+          onChange={() => setAnonymous(!isAnonymous)}
+          checked={isAnonymous}
+        />
         <p className="text-custom-gray ml-2">Post anonymously</p>
       </div>
       <div className="flex justify-end pt-4">
-        <Button type="submit" className="px-9 form-input">
+        <Button type="submit" className="px-9 form-input" onClick={handleClick}>
           Post
         </Button>
       </div>

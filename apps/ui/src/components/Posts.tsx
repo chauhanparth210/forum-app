@@ -1,27 +1,17 @@
 import Card from "./Card";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { Post, getPosts } from "../api";
+import React, { useEffect, useState } from "react";
+import Spinner from "./Spinner";
 
 dayjs.extend(relativeTime);
 
-type User = {
-  id: string;
-  username: string;
-  email: string;
-};
-
-type Post = {
-  id: string;
-  text: string;
-  created: string;
-  user: User | null;
-};
-
-type PostProps = {
+type SinglePostProps = {
   post?: Post;
 };
 
-function Post({ post }: PostProps) {
+function SinglePost({ post }: SinglePostProps) {
   return (
     <Card className="mt-4" key={post?.id}>
       <div>
@@ -37,14 +27,33 @@ function Post({ post }: PostProps) {
   );
 }
 
+const MemorizedPost = React.memo(SinglePost);
+
 function Posts() {
-  // const [posts, setPosts] = useState();
+  const [posts, setPosts] = useState<Post[]>();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function getData() {
+      const data = await getPosts();
+      setPosts(data);
+      setLoading(false);
+    }
+
+    getData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="pt-10 flex justify-center">
+        <Spinner />
+      </div>
+    );
+  }
 
   return (
-    <>
-      <Post />
-    </>
+    <>{posts?.map((post) => <MemorizedPost key={post?.id} post={post} />)}</>
   );
 }
 
-export default Posts;
+export default React.memo(Posts);
