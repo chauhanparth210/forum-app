@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import Button from "./Button";
 import { UserContext } from "../context/UserContext";
-import { LoginUser } from "../api";
+import { loginUser } from "../api";
 
 type LoginProps = {
   setModalType: (type: string) => void;
@@ -18,7 +18,7 @@ function Login({ setModalType, setOpen }: LoginProps) {
     try {
       e.preventDefault();
       const isEmail = username.includes("@");
-      const user = await LoginUser({
+      const user = await loginUser({
         ...(isEmail ? { email: username } : { username }),
         password,
       });

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import CreatePost from "./CreatePost";
 import Header from "./Header";
 import Posts from "./Posts";
-import { Post, User, getPosts } from "../api";
+import { Post, User, getPosts, meQuery } from "../api";
 import { UserContext } from "../context/UserContext";
 
 function Main() {
@@ -18,6 +18,22 @@ function Main() {
     }
 
     getData();
+  }, []);
+
+  useEffect(() => {
+    async function getUser() {
+      try {
+        const jwtToken = localStorage.getItem("jwt-token");
+        if (jwtToken) {
+          const user = await meQuery(jwtToken);
+          setUser(user);
+        }
+      } catch (error) {
+        console.log({ error });
+      }
+    }
+
+    getUser();
   }, []);
 
   return (

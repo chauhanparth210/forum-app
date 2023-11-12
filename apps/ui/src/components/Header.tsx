@@ -1,38 +1,57 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Modal } from "react-responsive-modal";
 import Button from "./Button";
 import Login from "./Login";
 import Signup from "./Signup";
+import { UserContext } from "../context/UserContext";
 
 type HeaderProps = {
   username?: string;
 };
 
 function Header({ username }: HeaderProps) {
+  const { user, setUser } = useContext(UserContext);
+
   const [isModalOpen, setOpen] = useState(false);
   const [modalType, setModalType] = useState<string>();
 
   return (
     <header>
       <div className="flex justify-end">
-        <Button
-          className="px-9 form-input"
-          onClick={() => {
-            setOpen(true);
-            setModalType("login");
-          }}
-        >
-          Login
-        </Button>
-        <Button
-          className="px-9 form-input ml-4"
-          onClick={() => {
-            setOpen(true);
-            setModalType("signup");
-          }}
-        >
-          Signup
-        </Button>
+        {!user ? (
+          <>
+            <Button
+              className="px-9 form-input"
+              onClick={() => {
+                setOpen(true);
+                setModalType("login");
+              }}
+            >
+              Login
+            </Button>
+            <Button
+              className="px-9 form-input ml-4"
+              onClick={() => {
+                setOpen(true);
+                setModalType("signup");
+              }}
+            >
+              Signup
+            </Button>
+          </>
+        ) : (
+          <Button
+            className="px-9 form-input ml-4"
+            onClick={() => {
+              if (setUser) {
+                setUser(undefined);
+                localStorage.removeItem("jwt-token");
+              }
+            }}
+          >
+            Logout
+          </Button>
+        )}
       </div>
       <h1 className="font-medium text-3xl text-custom-gray">
         Hello {username}

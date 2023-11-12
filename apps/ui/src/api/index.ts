@@ -36,7 +36,7 @@ export const createPosts = async (
   return data;
 };
 
-export const LoginUser = async (user: {
+export const loginUser = async (user: {
   username?: string;
   email?: string;
   password: string;
@@ -47,6 +47,34 @@ export const LoginUser = async (user: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(user),
+  });
+  const data = await response.json();
+  return data;
+};
+
+export const signUpUser = async (user: {
+  username: string;
+  email: string;
+  password: string;
+}): Promise<User> => {
+  const response = await fetch(`${BASE_URL}/user/register`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(user),
+  });
+  const data = await response.json();
+  return data;
+};
+
+export const meQuery = async (token: string): Promise<User> => {
+  const response = await fetch(`${BASE_URL}/user/me`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
   });
   const data = await response.json();
   return data;
