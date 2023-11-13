@@ -15,11 +15,12 @@ function CreatePost({ setPosts }: CreatePostProps) {
 
   const handleClick = async () => {
     const data = await createPosts({ text, isAnonymous }, user?.jwt);
-    if (!isAnonymous) {
-      setPosts((prevPosts: Post[]) => {
-        return [data, ...prevPosts];
-      });
-    }
+    const post = { ...data, ...(isAnonymous ? { user: null } : { user }) };
+    setPosts((prevPosts: Post[]) => {
+      return [post, ...prevPosts];
+    });
+    setText("");
+    setAnonymous(false);
   };
 
   return (
