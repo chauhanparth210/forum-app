@@ -1,15 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import CreatePost from "./CreatePost";
 import Header from "./Header";
 import Posts from "./Posts";
-import { Post, User, getPosts, meQuery } from "../api";
+import { Post, getPosts, meQuery } from "../api";
 import { UserContext } from "../context/UserContext";
 
 function Main() {
+  const { setUser, user } = useContext(UserContext);
   const [posts, setPosts] = useState<Post[]>();
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<User>();
-
   useEffect(() => {
     async function getData() {
       const data = await getPosts();
@@ -26,7 +25,9 @@ function Main() {
         const jwtToken = localStorage.getItem("jwt-token");
         if (jwtToken) {
           const user = await meQuery(jwtToken);
-          setUser(user);
+          if (setUser) {
+            setUser(user);
+          }
         }
       } catch (error) {
         console.log({ error });
@@ -37,11 +38,11 @@ function Main() {
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <>
       <Header username={user?.username} />
       <CreatePost setPosts={setPosts} />
       <Posts posts={posts} loading={loading} />
-    </UserContext.Provider>
+    </>
   );
 }
 
