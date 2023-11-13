@@ -16,6 +16,7 @@ This web app is created with the help of React + NestJs. It is used to post your
 
 - NestJs (API)
 - PostgreSQL (Database for storing the information)
+- [ER diagram](https://github.com/chauhanparth210/forum-app/blob/main/apps/api/database-entity/database-entity.png)
 
 ## Quick Start
 
