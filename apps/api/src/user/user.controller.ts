@@ -31,6 +31,7 @@ export class UserController {
   @Get('me')
   getProfile(@Req() req): Promise<UserResponseDTO | null> {
     const userId: string = req.id;
-    return this.userService.getUserInfo(userId);
+    const token: string = req.headers?.authorization.split(' ')[1];
+    return this.userService.getUserInfo(userId, token);
   }
 }

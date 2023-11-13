@@ -97,13 +97,17 @@ export class UserService {
     };
   }
 
-  async getUserInfo(id?: string): Promise<UserResponseDTO | null> {
+  async getUserInfo(
+    id?: string,
+    token?: string,
+  ): Promise<UserResponseDTO | null> {
     if (id) {
       const user = await this.userRepository.findOneBy({ id });
       return {
         username: user.username,
         email: user.email,
         userId: user.id,
+        jwt: token,
       };
     }
     return null;
